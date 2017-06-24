@@ -26,11 +26,12 @@
             accessToken = response.authResponse.accessToken;
             console.log(accessToken);
 
-            FB.api(
-              "/me/" + accessToken,
+            FB.api( "/me/" ,
               function (response) {
+                console.log("Got an access token");
                 if (response && !response.error) {
                   /* handle the result */
+                  console.log(response);
                 }
               }
               );
@@ -57,3 +58,8 @@
 
 <body>
   <h1>test</h1>
+
+  <!-- https://www.messenger.com/videocall/incall/?peer_id=1768059301 -->
+
+  <a href="https://www.messenger.com/videocall/incall/?peer_id=1768059301">CALL</a>
+  <!-- <iframe src="https://www.messenger.com/t/mimi.a.mao"></iframe> -->
