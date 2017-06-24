@@ -2,7 +2,6 @@
 
 // 10203321928766804
 
-
 function GetUserIDFromUsername($username) {
     // For some reason, changing the user agent does expose the user's UID
     $options  = array('http' => array('user_agent' => 'some_obscure_browser'));
@@ -19,7 +18,7 @@ function GetUserIDFromUsername($username) {
 
 
 if($_GET['id'])
-	$id=$_GET['id'];
+    $id=$_GET['id'];
 
 echo GetUserIDFromUsername($id);
 
