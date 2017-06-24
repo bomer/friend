@@ -26,7 +26,7 @@
             accessToken = response.authResponse.accessToken;
             console.log(accessToken);
 
-            FB.api( "/me/" ,
+            FB.api( "/{friend-list-id}/" ,
               function (response) {
                 console.log("Got an access token");
                 if (response && !response.error) {
