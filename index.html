@@ -29,6 +29,7 @@
             FB.api( "/{friend-list-id}/" ,
               function (response) {
                 console.log("GOT A FRIENDS LIST MAYBE");
+                console.log(response);
                 if (response && !response.error) {
                   /* handle the result */
                   console.log(response);
