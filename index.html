@@ -19,9 +19,12 @@
 
 
         FB.getLoginStatus(function(response) {
-
+          console.log("Got a login status check response");
+          console.log(response);
           if (response.status === 'connected') {
+            console.log("Got an access token");
             accessToken = response.authResponse.accessToken;
+            console.log(accessToken);
 
             FB.api(
               "/me/" + accessToken,
@@ -36,11 +39,11 @@
           } 
         });
 
-        
+
       }
     }, {scope:'email,user_friends'});
 
-    
+
   };
 
   (function(d, s, id){
