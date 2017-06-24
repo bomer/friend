@@ -1,10 +1,12 @@
 <html>
+
 <script>
+var match;
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '470670539953869',
       xfbml      : true,
-      version    : 'v2.9'
+      version    : 'v2.9',
     });
 
     // ADD ADDITIONAL FACEBOOK CODE HERE
@@ -20,19 +22,30 @@
 
         FB.getLoginStatus(function(response) {
           console.log("Got a login status check response");
-          console.log(response);
+          
           if (response.status === 'connected') {
             console.log("Got an access token");
             accessToken = response.authResponse.accessToken;
             console.log(accessToken);
 
-            FB.api( "/{friend-list-id}/" ,
+
+            FB.api( "/me/friends",
               function (response) {
                 console.log("GOT A FRIENDS LIST MAYBE");
                 console.log(response);
                 if (response && !response.error) {
                   /* handle the result */
-                  console.log(response);
+                  if (response.data){
+                    console.log("Found" + response)
+                    found.innerHTML="Found " + response.data.length + " friend(s).";
+                    var randomInt=Math.floor(Math.random() * (response.data.length-1));
+                    match = response.data[randomInt];
+                    friend.src="https://graph.facebook.com/" + match.id + "/picture";
+
+
+
+                  }
+                  
                 }
               }
               );
@@ -42,8 +55,8 @@
         });
 
 
-      }
-    }, {scope:'email,user_friends'});
+      } 
+    }, {scope:'email,user_friends,read_custom_friendlists,read_page_mailboxes,pages_show_list'});
 
 
   };
@@ -55,12 +68,46 @@
    js.src = "http://connect.facebook.net/en_US/sdk.js";
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
+
+function call(){
+  if(match){
+    window.open("https://www.messenger.com/videocall/incall/?peer_id=" + match.id)
+  }
+}
+
+
 </script>
 
+<style type="text/css">
+  button{
+    width: 50%;
+    height: 25%;
+    font-size: 60px;
+    display: inline;
+    background-color: #f2f2f2;
+    border-width: 0.1
+  }
+</style>
+
 <body>
-  <h1>test</h1>
+  <div id="app">
+    <h1>Friend Roulette</h1> 
 
-  <!-- https://www.messenger.com/videocall/incall/?peer_id=1768059301 -->
+    <h2>Bite the bullet and have a conversation</h2>
 
-  <a href="https://www.messenger.com/videocall/incall/?peer_id=1768059301">CALL</a>
-  <!-- <iframe src="https://www.messenger.com/t/mimi.a.mao"></iframe> -->
+    <!-- https://www.messenger.com/videocall/incall/?peer_id=1768059301 -->
+    <!-- <form action="https://www.facebook.com/ajax/profile/removefriendconfirm.php?uid=1768059301"> -->
+    <p id="found">Warming up...</p>
+    <img id="friend" src="">
+    
+    <div style="display:flex;">
+
+        <button> Unfriend </button>    
+        <button onclick="call()"> Call </button>
+      </div>
+    </div>
+    <!-- <a href="https://www.messenger.com/videocall/incall/?peer_id=1768059301">CALL A FRIEND</a> -->
+
+    <!-- <iframe src="https://www.messenger.com/t/mimi.a.mao"></iframe> -->
+  
+</body>
