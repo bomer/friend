@@ -8,42 +8,49 @@
     });
 
     // ADD ADDITIONAL FACEBOOK CODE HERE
-var accessToken;
+    var accessToken;
 
-FB.login(function(response) {
-    if (response.authResponse) {
+    FB.login(function(response) {
+      console.log("Logging in");
+      if (response.authResponse) {
+        console.log("Got an auth response");
+        console.log(response);
         // window.location.reload();
-    }
-}, {scope:'email,user_friends'});
 
-  FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') {
-      accessToken = response.authResponse.accessToken;
 
-    FB.api(
-    "/me/" + accessToken,
-    function (response) {
-      if (response && !response.error) {
-        /* handle the result */
+        FB.getLoginStatus(function(response) {
+
+          if (response.status === 'connected') {
+            accessToken = response.authResponse.accessToken;
+
+            FB.api(
+              "/me/" + accessToken,
+              function (response) {
+                if (response && !response.error) {
+                  /* handle the result */
+                }
+              }
+              );
+
+
+          } 
+        });
+
+        
       }
-    }
-);
+    }, {scope:'email,user_friends'});
 
-      
-    } 
-  } );
-
-
+    
   };
 
   (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "http://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "http://connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));
 </script>
 
 <body>
-<h1>test</h1>
+  <h1>test</h1>
